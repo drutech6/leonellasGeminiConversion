@@ -1,0 +1,160 @@
+---
+# index.html
+layout: default
+---
+
+<section id="home">
+    <div class="container">
+        <h2>Welcome to {{ site.title }}</h2>
+        <p>{{ site.description }}</p>
+        <a href="#About" class="btn">Learn More</a>
+        <a href="#book-now" class="btn" style="margin-left: 15px;">Check Availability</a>
+    </div>
+</section>
+
+<section id="About">
+    <div class="container">
+        <h2>About The Property</h2>
+        <p>Leonella's Vacation Home is situated on Campo Street Extension, San Juan, Trinidad. The quiet neighborhood ensures restful nights while still being minutes away from the lively Croisee, where you’ll find groceries, bakeries, stores, banks, and public transport. Major routes to Piarco International Airport, Downtown Port of Spain, and Maracas Beach are all within easy reach.</p>
+        <p>This charming 2-bedroom residential home is ideal for couples, families, or small groups seeking a peaceful retreat with modern comforts and easy city access.</p>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="#house-rules" class="btn" style="margin: 0 10px;">View Our Home Rules</a>
+            <a href="#gallery" class="btn" style="margin: 0 10px;">View Gallery</a>
+            <a href="#book-now" class="btn" style="margin: 0 10px;">Check Availability</a>
+        </div>
+    </div>
+</section>
+
+<section id="amenities">
+    <div class="container">
+        <h2>Our Amenities</h2>
+        <ul class="amenities-grid">
+            {% for amenity in site.data.amenities %}
+                <li>{{ amenity.item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section id="house-rules">
+    <div class="container">
+        <h2>House Rules</h2>
+        <ul class="rules-list">
+            {% for item in site.data.rules %}
+                <li>{{ item.rule }}</li>
+            {% endfor %}
+        </ul>
+        <p style="text-align: center; margin-top: 30px;">These rules are written to ensure that your time here is safe and trouble free. We wish you a pleasant and enjoyable vacation! You are always welcome!</p>
+    </div>
+</section>
+
+<section id="gallery">
+    <div class="container">
+        <h2>Gallery</h2>
+        <p>Take a visual tour of our cozy and thoughtfully decorated vacation home.</p>
+        <div class="gallery-grid">
+            {% for image in site.data.gallery %}
+            <div class="gallery-item" data-img="{{ image.url | relative_url }}">
+                <img src="{{ image.url | relative_url }}" alt="{{ image.alt }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="rate" class="section">
+    <h2>Rates & Policies</h2>
+    <div id="rate-container">
+        <h3>Base Rate: ${{ site.data.rates.base_rate }} / night</h3>
+        <p><strong>Guests:</strong> 1-{{ site.data.rates.max_guests }}</p>
+        <p><strong>Extra Guest Fee:</strong> ${{ site.data.rates.extra_guest_fee }} / night per guest over {{ site.data.rates.max_guests }}</p>
+        <p><strong>Cleaning Fee:</strong> ${{ site.data.rates.cleaning_fee }} (one-time)</p>
+        <br>
+        <h3>Policies</h3>
+        <ul>
+            {% for policy in site.data.rates.policies %}
+            <li>{{ policy }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section id="book-now">
+    <div class="container">
+        <div class="calendar-wrapper">
+            <div class="calendar-container">
+                <div class="calendar-section">
+                    <h3 class="section-title"><i class="fas fa-sign-in-alt"></i> Check-in Date</h3>
+                    <div class="calendar" id="checkin-calendar">
+                        <div class="calendar-header">
+                            <button class="nav-btn" id="prev-checkin"><i class="fas fa-chevron-left"></i></button>
+                            <div class="month-year" id="checkin-month-year"></div>
+                            <button class="nav-btn" id="next-checkin"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="weekdays">
+                            <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                        </div>
+                        <div class="days-grid" id="checkin-days"></div>
+                    </div>
+                </div>
+
+                <div class="calendar-section">
+                    <h3 class="section-title"><i class="fas fa-sign-out-alt"></i> Check-out Date</h3>
+                    <div class="calendar" id="checkout-calendar">
+                        <div class="calendar-header">
+                            <button class="nav-btn" id="prev-checkout"><i class="fas fa-chevron-left"></i></button>
+                            <div class="month-year" id="checkout-month-year"></div>
+                            <button class="nav-btn" id="next-checkout"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="weekdays">
+                            <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                        </div>
+                        <div class="days-grid" id="checkout-days"></div>
+                    </div>
+                </div>
+
+                <div id="rates-container" style="flex:1; border:1px solid #ccc; border-radius:8px; padding:20px; max-width:300px; text-align: center;">
+                    <h3>Calculate Your Stay</h3>
+                    
+                    <div style="margin-top:15px;">
+                        <label for="guest-count"><strong>Guests:</strong></label>
+                        <input type="number" id="guest-count" value="1" min="1" max="10" style="width:60px; margin-left:10px;">
+                    </div>
+
+                    <div style="margin-top:15px; text-align: left;">
+                        <p><strong>Duration:</strong> <span id="trip-duration">--</span><br>
+                        <p><strong>Base Rate:</strong> $<span id="baseRate">0</span></p>
+                        <p><strong>Extra Guest Fee:</strong> $<span id="extraGuestFee">0</span></p>
+                        <p><strong>Cleaning Fee:</strong> $<span id="cleaningFee">0</span></p>
+                        <hr>
+                        <p><strong>Total:</strong> $<span id="total">0</span></p>
+                    </div>
+                    <div class="controls">
+                        <button class="calendar-btn btn-book" id="book-now-btn">
+                            <i class="fas fa-check"></i> Request to Book
+                        </button>
+                         <button class="calendar-btn btn-clear" id="clear-dates-btn">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+             <div class="legend">
+                <div class="legend-item"><div class="legend-color legend-available"></div> Available</div>
+                <div class="legend-item"><div class="legend-color legend-selected"></div> Selected</div>
+                <div class="legend-item"><div class="legend-color legend-range"></div> Stay</div>
+                <div class="legend-item"><div class="legend-color legend-unavailable" style="background-color: #EDD5D5; color: red;"></div> Unavailable</div>
+                <div class="legend-item"><div class="legend-color legend-today"></div> Today</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container" style="text-align: center;">
+        <h2>Contact Us</h2>
+        <p>Have questions? We'd love to hear from you.</p>
+        <p>Email: <a href="mailto:example@email.com">example@email.com</a></p>
+        <p>Phone: +1 (555) 123-4567</p>
+    </div>
+</section>

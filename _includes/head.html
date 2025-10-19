@@ -1,0 +1,19 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    
+    <script id="jekyll-data" type="application/json">
+    {
+      "rates": {
+        "base_rate": {{ site.data.rates.base_rate | jsonify }},
+        "extra_guest_fee": {{ site.data.rates.extra_guest_fee | jsonify }},
+        "cleaning_fee": {{ site.data.rates.cleaning_fee | jsonify }},
+        "max_guests": {{ site.data.rates.max_guests | jsonify }}
+      },
+      "booked_dates": {{ site.data.booked_dates | jsonify }}
+    }
+    </script>
+</head>

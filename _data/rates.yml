@@ -1,0 +1,11 @@
+# _data/rates.yml
+base_rate: 100
+extra_guest_fee: 25
+cleaning_fee: 50
+max_guests: 4
+policies:
+  - "Check-in: 3:00 PM"
+  - "Check-out: 11:00 AM"
+  - "Minimum 2-night stay."
+  - "50% deposit required to confirm booking."
+  - "Cancellation policy: Full refund 14 days prior to arrival."
