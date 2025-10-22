@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gallery</title>
+<style>
+  /* ---------- page layout ---------- */
+  body{
+    font-family:sans-serif;
+    text-align:center;
+    background:#19354D;
+    margin:0;
+    padding:2rem;
+  }
+  .thumb{
+    max-width:40%;
+    height:auto;
+    margin:.5rem;
+    border:4px solid #3D5D78;
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+    cursor:pointer;
+  }
+  
+  /* ---------- NEW: Sticky Home Link for Main Page ---------- */
+  #mainBackHome {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: #456396;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    color: #289E3F;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 100; /* Above page content, below lightbox */
+  }
+  #mainBackHome:hover {
+    text-decoration: underline;
+  }
+
+
+  /* ---------- lightbox ---------- */
+  #overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+  }
+  #lightbox{
+    position:relative;
+    max-width:90vw;
+    max-height:90vh;
+  }
+  #lightbox img{
+    display:block;
+    max-width:100%;
+    max-height:90vh;
+    width:auto;
+    height:auto;
+    border:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.5);
+  }
+  /* navigation arrows */
+  .nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:#289E3F;
+    color:#000;
+    border:none;
+    padding:.5rem .8rem;
+    font-size:1.5rem;
+    cursor:pointer;
+    user-select:none;
+  }
+  #prev{left:-3rem;}
+  #next{right:-3rem;}
+
+  /* back-home link (for lightbox) */
+  #backHome{
+    position:absolute;
+    bottom:1rem;
+    color:#63EB7D;
+    font-size:1.1rem;
+    text-decoration:none;
+  }
+  #backHome:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<a id="mainBackHome" href="index.html">← Back to Home</a>
+
+<h1>Gallery</h1>
+
+<img class="thumb" src="https://drutech6.github.io/Images/293.jpg" alt="Image 293">
+<img class="thumb" src="https://drutech6.github.io/Images/723.jpg" alt="Image 723">
+<img class="thumb" src="https://drutech6.github.io/Images/293.jpg" alt="Image 293">
+<img class="thumb" src="https://drutech6.github.io/Images/723.jpg" alt="Image 723">
+<img class="thumb" src="https://drutech6.github.io/Images/293.jpg" alt="Image 293">
+<img class="thumb" src="https://drutech6.github.io/Images/723.jpg" alt="Image 723">
+
+<div id="overlay">
+  <div id="lightbox">
+    <img id="lbImg" src="" alt="">
+    <button id="prev" class="nav">&#10094;</button>
+    <button id="next" class="nav">&#10095;</button>
+  </div>
+  <a id="backHome" href="index.html">← Back to Home</a>
+</div>
+
+<script>
+  const thumbs = Array.from(document.querySelectorAll('.thumb'));
+  const overlay = document.getElementById('overlay');
+  const lbImg   = document.getElementById('lbImg');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let current = 0;
+
+  function show(index){
+    current = (index + thumbs.length) % thumbs.length;
+    lbImg.src = thumbs[current].src;
+    overlay.style.display = 'flex';
+  }
+  function hide(){ overlay.style.display = 'none'; }
+
+  thumbs.forEach((img,i)=>img.addEventListener('click',()=>show(i)));
+  prevBtn.addEventListener('click',()=>show(current-1));
+  nextBtn.addEventListener('click',()=>show(current+1));
+
+  /* close lightbox on clicking outside the image */
+  overlay.addEventListener('click', e=>{
+    if(e.target===overlay) hide();
+  });
+</script>
+
+</body>
+</html>

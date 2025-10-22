@@ -1,0 +1,18 @@
+{
+  "rentalRates": {
+    "baseRate": 75,
+    "baseGuests": 4,
+    "extraGuestFee": 25,
+    "cleaningFee": 60
+  },
+  "paymentPolicy": {
+    "deposit": "50% due at booking",
+    "balance": "Due 7 days before check-in",
+    "acceptedPayments": "Credit Card, PayPal, Bank Transfer"
+  },
+  "cancellationPolicy": [
+    "Free cancellation up to 14 days before check-in",
+    "50% refund if canceled within 7 days",
+    "No refund for cancellations less than 7 days before check-in"
+  ]
+}
